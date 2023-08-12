@@ -1,29 +1,26 @@
 import pygame
-from Grid_Battle.constants import TITLE, WIDTH, HEIGHT
+from Grid_Battle.constants import TITLE, WIDTH, HEIGHT, FPS
 from Grid_Battle.game import Game
 
-FPS = 60
+
+
+
 #WIN = window, ici on crée la taille de la fenetre du jeu
 WIN = pygame.display.set_mode((WIDTH,HEIGHT))
 #checkers = nom du jeu
 pygame.display.set_caption(TITLE)
 
 def main():
-    run = True
     #ici on crée un timer pour définir la vitesse de rafraichissement du jeu (FPS)
     clock = pygame.time.Clock()
     #on initialise le jeu
     game = Game(WIN)
 
-    while run:
+    while game.run:
         clock.tick(FPS)
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:  # arret de la boucle du jeu, quand on quitte le jeu (on appuie sur la croix pour fermer le jeu)
-                run = False
-            
-           
-        #dessin de l'échequier
+        #on regarde les events du jeu a chaque frame, game.event permet de quitter le jeu correctement
+        game.event()   
+        #on redessine le jeu à chaque frame  si besoin
         game.update()
     
     pygame.quit()
