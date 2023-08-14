@@ -34,3 +34,12 @@ class Player(Characters):
         self.walk_button.draw(screen)
         self.change_button.draw(screen)
 
+    def action_posibility(self, screen):
+        #self.show_posibilities_move(screen)
+        self.show_posibilities_attack(screen)
+        
+        # if self.get_state() == "attacking":
+        #     self.show_posibilities_attack(screen)
+
+        # elif self.get_state() == "moving":
+        #     self.show_posibilities_move(screen)

@@ -11,8 +11,8 @@ class Gui:
     def update(self, time):
         self.manager.update(time)
 
-    def draw(self, window):
-        self.manager.draw_ui(window)
+    def draw(self, win):
+        self.manager.draw_ui(win)
 
     def event(self, event):
         if event.type == pygame.USEREVENT:
