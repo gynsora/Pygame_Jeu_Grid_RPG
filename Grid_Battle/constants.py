@@ -40,6 +40,17 @@ PLAYER_ATTRIBUTE = {
     'name' : 'gynz'
 }
 
+ENEMY_ATTRIBUTE = { 
+    'x' : 289 ,
+    'y' : 32 ,
+    'width' : 32,
+    'height' : 32 ,
+    'color' : RED ,
+    'atk' : 25,
+    'hp' : 100,
+    'name' : 'enemy'
+}
+
 POSSIBLE_MOVEMENTS = {
     "top": [1, 1, 1, 1, 1],
     "left": [1, 1, 1, 1, 1],

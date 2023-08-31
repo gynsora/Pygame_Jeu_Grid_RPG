@@ -1,6 +1,7 @@
 import pygame
 from .constants import *
 from .player import Player
+from .enemy import Enemy
 class Game:
     def __init__(self, win):#initialisation du jeu
         self.win = win
@@ -13,14 +14,18 @@ class Game:
     def new(self):#création du joueur et de ses sort
         self.all_sprites = pygame.sprite.Group() 
         self.player = Player(*PLAYER_ATTRIBUTE.values())#on passe en parametre tout les attributs du joueur (attention à l'ordre des attributs)
+        self.enemy = Enemy(*ENEMY_ATTRIBUTE.values())
         self.all_sprites.add(self.player)
+        self.all_sprites.add(self.enemy)
         self.player.player_controller()
     
     def event(self):#eventListener du jeu
         for event in pygame.event.get():
             if event.type == pygame.QUIT:  # arret de la boucle du jeu, quand on quitte le jeu (on appuie sur la croix pour fermer le jeu)
                 self.run = False
-            self.player.controller_event_handler(event)
+            self.player.basic_attack(self.enemy,event)
+            self.player.controller_event_handler(event) #controle les event pour les boutons de sorts du joueur
+            self.player.actions(event) #controle l'affichage des zone en fonction des boutons cliquez (zone jaune transparente)
 
     def update(self): #update du jeu
         self.player.update_controller(FPS)

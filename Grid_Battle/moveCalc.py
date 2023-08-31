@@ -6,13 +6,14 @@ class MoveCalc(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface((32,32))
         #ajouter un argument pour recupérer le type de sort choisi (deplacement, sort)
-        #modifier image.fill pour avoir des tile transparente (modifier les couleur pour intégrer l'opacité à la couleur)
+        #modifier image.fill pour avoir des tile transparente 
         self.image.fill(LIGHTYELLOW)
+        self.image.set_alpha(128) #opacity
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
     
-    def calc_movement(self,target): # faire cette fonction avec uune matrice a 2 dimension pour utilisé les coordonées plus facilement
+    def calc_movement(self,target): # faire cette fonction avec une matrice a 2 dimension pour utilisé les coordonées plus facilement
         coordinates = []
         for k, v in POSSIBLE_MOVEMENTS.items():
             if k == "top":
