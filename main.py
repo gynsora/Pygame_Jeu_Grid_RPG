@@ -3,8 +3,6 @@ from Grid_Battle.constants import TITLE, WIDTH, HEIGHT, FPS
 from Grid_Battle.game import Game
 
 
-
-
 #WIN = window, ici on crée la taille de la fenetre du jeu
 WIN = pygame.display.set_mode((WIDTH,HEIGHT))
 #checkers = nom du jeu

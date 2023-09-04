@@ -68,3 +68,13 @@ POSSIBLE_ATTACKS = {
     "bottom-left": [1, 1, 1,1],
     "bottom-right": [1, 1,1,1]
 }
+
+PIC_DICTIONARY = {
+    "Character_Idle": [],
+    "Character_Walking_Front": [],
+    "Character_Attack": []
+}
+
+E_PIC_DICTIONARY = {
+    "Monster": []
+}

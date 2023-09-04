@@ -3,11 +3,62 @@ from .characters import *
 from .gui import *
 from .constants import *
 from .state import GameState
+from .dataWork import load_image
 
 class Player(Characters):
     def __init__(self, x, y, width, height, color, atk , hp, name):
         super().__init__(x, y, width, height, color, atk , hp, name)
         self.__state = GameState()
+        self.index = 0
+        #on défini un liste de vide pour contenir les images d'animations du joueur (lorsqu'il attaque, qu'il marche ou qu'il reste immobile)
+        self.idle = []
+        self.walk_front = []
+        self.attacking = []
+        self.load_images()
+        # self.image = self.attacking[0]
+        #elapsed sert pour check les temps entre les animations
+        self.elapsed = 0
+    
+    def load_images(self):#permet de charger les images liées au joueur (spritesheet)
+        for dirr, values in PIC_DICTIONARY.items():
+            for value in values:
+                if dirr == "Character_Idle":
+                    self.idle.append(load_image(self, dirr, value)) #load_image est la fonction présente dans dataWork
+                elif dirr == "Character_Walking_Front":
+                    self.walk_front.append(load_image(self, dirr, value))
+                elif dirr == "Character_Attack":
+                    self.attacking.append(load_image(self, dirr, value))
+    
+    def animation(self): #fonction pour animé le joueur lorsqu'il reste sur place, qu'il bouge, ou qu'il attaque
+        now = pygame.time.get_ticks()
+        if self.get_state() == "idle":
+            if now - self.elapsed > 250:
+                self.elapsed = now
+                self.index += 1
+                if self.index >= len(self.idle):
+                    self.index = 0
+                self.image = self.idle[self.index]
+        elif self.get_state() == "moving":
+            if now - self.elapsed > 250:
+                self.elapsed = now
+                self.index += 1
+                if self.index >= len(self.walk_front):
+                    self.index = 0
+                self.image = self.walk_front[self.index]
+        if self.get_state() == "attacking":
+            if now - self.elapsed > 250:
+                self.elapsed = now
+                self.index += 1
+                try:
+                    if self.index >= len(self.attacking):
+                        self.index = 0
+                    self.image = self.attacking[self.index]
+                except IndexError:
+                    self.index = 0
+        self.image.set_colorkey(BLACK)#permet d'enlever le background noir des sprites
+    
+    def update(self): # permet de mettre à jour l'animation du joueur
+        self.animation()
 
     def player_controller(self): #création des controller pour le joueur (bouton pour faire des actions dans le jeu)
         #on défini un Gui pour chaque action du joueur
